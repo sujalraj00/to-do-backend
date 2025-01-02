@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "prestart": "npm run build",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "dev": "nodemon -L ts-node src/index.ts"
   },
   "keywords": [],
@@ -16,7 +18,8 @@
     "drizzle-orm": "^0.38.0",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -26,7 +29,6 @@
     "@types/pg": "^8.11.10",
     "drizzle-kit": "^0.30.0",
     "nodemon": "^3.1.7",
-    "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   }
 }
