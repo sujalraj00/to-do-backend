@@ -67,4 +67,24 @@ taskRouter.post("/sync", auth, async (req: AuthRequest, res) => {
     }
 });
 
+taskRouter.patch("/:id", auth, async (req: AuthRequest, res) => {
+    try {
+        const taskId = req.params.id;
+        const updatedTask = req.body;
+
+        const [task] = await db.update(tasks)
+            .set(updatedTask)
+            .where(eq(tasks.id, taskId))
+            .returning();
+
+        if (!task) {
+            res.status(404).json({ error: "Task not found" });
+        }
+
+        res.json(task);
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: e });
+    }
+});
 export default taskRouter;                                        
