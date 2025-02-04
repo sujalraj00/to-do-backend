@@ -1,4 +1,4 @@
-import { pgTable, text, uuid, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, uuid, timestamp, integer } from "drizzle-orm/pg-core";
 import { title } from "process";
 
 
@@ -22,7 +22,9 @@ export const tasks = pgTable("tasks", {
     uid: uuid("uid").notNull().references(() => users.id, { onDelete: "cascade" }),
     dueAt: timestamp("due_at").$defaultFn(() => new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)),
     createdAt: timestamp("created_at").defaultNow(),
-    updatedAt: timestamp("updated_at").defaultNow()
+    updatedAt: timestamp("updated_at").defaultNow(),
+    isCompleted: integer("is_completed").notNull().default(0)
+
 });
 
 export type Task = typeof tasks.$inferSelect;
